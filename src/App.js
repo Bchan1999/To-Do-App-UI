@@ -1,24 +1,30 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import ToDoList from './Components/ToDoList.js';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools'
 
 function App() {
+  //create a client
+  const queryClient = new QueryClient()
+
+  const [isOpen, setIsOpen] = React.useState(false)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <ToDoList/>
+       <button
+        onClick={() => setIsOpen(!isOpen)}
+      >{`${isOpen ? 'Close' : 'Open'} the devtools panel`}</button>
+      {isOpen && <ReactQueryDevtoolsPanel onClose={() => setIsOpen(false)} />}
+    </QueryClientProvider>
   );
 }
 
