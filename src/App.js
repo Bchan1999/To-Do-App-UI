@@ -4,6 +4,10 @@ import ToDoList from './Components/ToDoList.js';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools'
 import { useQuery } from '@tanstack/react-query';
+import ButtonUsage from './Components/ButtonUsage.js';
+
+
+
 
 const fetchTodo = async () => {
   const res = await fetch('http://localhost:8080/todo')
@@ -31,9 +35,12 @@ function App() {
         ))}
       </ul>
       <ToDoList/>
+      <ButtonUsage/>
        <button
         onClick={() => setIsOpen(!isOpen)}
       >{`${isOpen ? 'Close' : 'Open'} the devtools panel`}</button>
+      
+
       {isOpen && <ReactQueryDevtoolsPanel onClose={() => setIsOpen(false)} />}
   </>
   );
